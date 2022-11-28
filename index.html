@@ -93,16 +93,155 @@
       e.preventDefault();
       let output = document.querySelector('output');
       let firstNum = document.querySelector('#first-num').value;
+
+      // Step 4.
+      try {
+        check_number (firstNum);
+      }
+      catch (err) {
+        if (err instanceof ValidationError) {
+          alert ("Invalid Input: " + err.name);
+        }
+      }
+
       let secondNum = document.querySelector('#second-num').value;
+
+      // Step 4.
+      try {
+        check_number (secondNum);
+      }
+      catch (err) {
+        if (err instanceof ValidationError) {
+          alert ("Invalid Input: " + err.name);
+        }
+      }
+
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      // output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+
+      // Step 3.
+      try {
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch (err) {
+        throw new SyntaxError ("Invalid or unexpected token");
+      }
+      finally {
+        console.log (firstNum + operator + secondNum);
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    // Step 2.
+    function console_log () {
+      console.log ("Console Log Demo");
+    }
+
+    function console_error () {
+      console.error ("Console Error Demo");
+    }
+
+    function console_count () {
+      console.count ("Count Button");
+    }
+
+    function console_warn () {
+      console.warn ("Console Worn Button");
+    }
+
+    function console_assert () {
+      console.assert (2 == 3, "{number: 2, errorMsg: 'The number does not equal 3'}");
+    }
+
+    function console_clear () {
+      console.clear ();
+    }
+
+    function console_dir () {
+      console.dir (errorBtns[6]);
+    }
+
+    function console_dirxml () {
+      console.dirxml (errorBtns[7]);
+    }
+
+    function console_group_start () {
+      console.group ("console.group");
+    }
+
+    function console_group_end () {
+      console.groupEnd ();
+    }
+
+    function console_table () {
+      console.table ([["Software Engineering", 110], ["Programming Language", 130], ["Advanced Software Engineering", 112]]);
+    }
+
+    function start_timer () {
+      console.time ();
+    }
+
+    function end_timer () {
+      console.timeEnd ();
+    }
+
+    function console_trace () {
+      console.trace ();
+    }
+
+    function trigger_global_error () {
+      throw boom;
+    }
+
+    errorBtns[0].addEventListener ("click", () => {console_log ()});
+    errorBtns[1].addEventListener ("click", () => {console_error ()});
+    errorBtns[2].addEventListener ("click", () => {console_count ()});
+    errorBtns[3].addEventListener ("click", () => {console_warn ()});
+    errorBtns[4].addEventListener ("click", () => {console_assert ()});
+    errorBtns[5].addEventListener ("click", () => {console_clear ()});
+    errorBtns[6].addEventListener ("click", () => {console_dir ()});
+    errorBtns[7].addEventListener ("click", () => {console_dirxml ()});
+    errorBtns[8].addEventListener ("click", () => {console_group_start ()});
+    errorBtns[9].addEventListener ("click", () => {console_group_end ()});
+    errorBtns[10].addEventListener ("click", () => {console_table ()});
+    errorBtns[11].addEventListener ("click", () => {start_timer ()});
+    errorBtns[12].addEventListener ("click", () => {end_timer ()});
+    errorBtns[13].addEventListener ("click", () => {console_trace ()});
+    errorBtns[14].addEventListener ("click", () => {trigger_global_error ()});
+
+    // Step 4.
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "ValidationError";
+      }
+    }
+
+    function check_number (num) {
+      if (isNaN (num)) {
+        throw new ValidationError (num + "is not a number");
+      }
+    }
+
+    // Step 5.
+    window.onerror = function () {
+      console.log ("Sadly an error happened my friend");
+    }
+    
   </script>
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "fc2bb13e6a624a32ace59c3f2b614a51"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+
 </body>
 
 </html>
